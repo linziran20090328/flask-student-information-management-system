@@ -11,12 +11,16 @@ class DB:
         self.cc.execute('use student;')
         self.student = []
         self.load()
+        self.student.sort(key=lambda item: str(int(item['math']) + int(item['chinese']) + int(item['english']) / 3),reverse=True)
 
     def all(self):
+        print(self.student)
+        print(self.student)
         return self.student
 
     def insert(self, student):
         self.student.append(student)
+        self.student.sort(key=lambda item: str(int(item['math']) + int(item['chinese']) + int(item['english']) / 3),reverse=True)
 
     def save(self):
         self.cc.execute('truncate table student_xlsx;')
@@ -43,6 +47,7 @@ class DB:
     def delete(self, student):
         """删除学员信息"""
         self.student.remove(student)
+        self.student.sort(key=lambda item: str(int(item['math']) + int(item['chinese']) + int(item['english']) / 3),reverse=True)
 
 
 class Personal_Information:

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>admin</title>
     <link rel='stylesheet' href="/static/layui/css/layui.css" media="all">
+
 </head>
 <ul class="layui-nav">
     <li class="layui-nav-item">
@@ -31,7 +32,7 @@
     </li>
 
 </ul>
-<table class="layui-hide" id="tables" lay-filter="tables" style="margin-top: 200px"></table>
+<table class="layui-hide" id="tables" lay-filter="tables" ></table>
 <div id="userBar" style="display: none;">
     <a class="layui-btn layui-btn-xs" lay-event="change">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
@@ -44,7 +45,8 @@
         let $ = layui.$
         var tableIns = table.render({
             elem: '#tables'
-            , toolbar: '#userToolBar'  // 表格的工具条
+            , even: true //开启隔行背景
+            , toolbar: true  // 表格的工具条
             , url: 'http://192.168.0.100:5000/students' //数据接口
             {#, page: true //是否启用分页#}
             , height: 'full-300'
@@ -54,7 +56,7 @@
             }
             , cols: [[
                 {type: 'checkbox'},//表头
-                {field: 'id', title: 'ID', hide: true},
+                {field: 'id', title: 'ID', hide: true,id:'idText'},
                 {field: 'name', title: '名字', align: 'center'}
                 , {field: 'chinese', title: '语文成绩', align: 'center'}
                 , {field: 'math', title: '数学成绩', align: 'center'}
@@ -89,7 +91,7 @@
                     content: 'http://192.168.0.100:5000/change_table?name=' + obj.data.name,
                     area: ['800px', '400px'],
                     end: function () {
-                        table.reload('tables')
+                        location.reload()
                     }
                 })
 

@@ -1,12 +1,13 @@
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import Flask, render_template, request, redirect, jsonify, Blueprint
 from model import *
 from db import StudentDB
 
-
+admin_bp = Blueprint('auth', __name__, url_prefix='/admin')
 user_db = StudentDB()
 session: dict = {}
-
+name = ''
 app = Flask(__name__)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -72,11 +73,7 @@ def register():
 def students():
     db = DB()
     student = db.all()
-    # page = request.args.get('page', type=int, default=1)
-    # limit = request.args.get('limit', type=int, default=10)
-    # start = (page - 1) * limit
-    # data = db[start:start + limit]
-    # # print(students)
+    student.sort(key=lambda item: item['math'],reverse=True)
     ret = {"code": 0, "message": "", "count": len(student), "data": student, 'success': True}
     db.save()
     return jsonify(ret)
@@ -92,7 +89,6 @@ def admin():
         return render_template('主页面.html', user=name)
     else:
         return redirect('/login')
-
 
 
 @app.route('/change', methods=['GET', 'POST'])
@@ -134,10 +130,9 @@ def admin_information():
     :return:
     """
     db = Personal_Information()
-    for i in db.all():
-        if i['username'] == session['name']:
-            students = i
-            if request.method == 'post':
+    if request.method == 'POST':
+        for i in db.all():
+            if i['username'] == session['name']:
                 username = request.form.get('username')
                 password = request.form.get('password')
                 city = request.form.get('city')
@@ -152,6 +147,10 @@ def admin_information():
                     'sex': sex,
                     'text': text
                 }
+                # print(student_user)
+                # print(i)
+                db.delete(i)
+                # print(db.all())
                 db.insert(student_user)
                 db.save()
                 return redirect('/admin')
@@ -231,7 +230,6 @@ def user():
     return jsonify({"message": "获取数据失败", "user_info": "", 'success': True})
 
 
-
 @app.route('/')
 def main():
     return redirect('/login')
@@ -239,7 +237,6 @@ def main():
 
 @app.route('/test')
 def test():
-
     return render_template('text-layui.html')
 
 
