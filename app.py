@@ -225,6 +225,7 @@ def user():
     return jsonify({"message": "获取数据失败", "user_info": "", 'success': True})
 
 
+
 @app.route('/')
 def main():
     return redirect('/login')
