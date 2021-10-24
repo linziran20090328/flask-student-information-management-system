@@ -3,7 +3,10 @@ import pymysql
 
 class DB:
     def __init__(self):
-        self.c = pymysql.connect(host='39.104.80.98', port=3306, password='123456', user='windows')
+        self.c = pymysql.connect(host='39.104.80.98',
+                                 port=3306,
+                                 password='123456',
+                                 user='windows')
         self.cc = self.c.cursor()
         self.cc.execute('use student;')
         self.student = []

@@ -26,10 +26,12 @@ def login():
                     session['sex'] = i['sex']
                     session['text'] = i['text']
             print(session)
+            db.save()
             return redirect('/admin')
         else:
+            db.save()
             return render_template('登录-弹窗.html')
-        db.save()
+
     return render_template('登录.html')
 
 
@@ -68,13 +70,15 @@ def register():
 
 @app.route('/students')
 def students():
-    db = DB().all()
-    page = request.args.get('page', type=int, default=1)
-    limit = request.args.get('limit', type=int, default=10)
-    start = (page - 1) * limit
-    data = db[start:start + limit]
-    # print(students)
-    ret = {"code": 0, "message": "", "count": len(db), "data": data, 'success': True}
+    db = DB()
+    student = db.all()
+    # page = request.args.get('page', type=int, default=1)
+    # limit = request.args.get('limit', type=int, default=10)
+    # start = (page - 1) * limit
+    # data = db[start:start + limit]
+    # # print(students)
+    ret = {"code": 0, "message": "", "count": len(student), "data": student, 'success': True}
+    db.save()
     return jsonify(ret)
 
 
@@ -84,9 +88,11 @@ def admin():
     password = session.get('password')
     if name and password:
         db = DB()
+        db.save()
         return render_template('主页面.html', user=name)
     else:
         return redirect('/login')
+
 
 
 @app.route('/change', methods=['GET', 'POST'])
@@ -206,7 +212,7 @@ def change_table():
                 db.delete(stu)
                 db.insert(stu)
                 db.save()
-                return redirect('/admin')
+                # return redirect('/admin')
             return render_template('修改(1).html', name=username, students=stu)
 
 
