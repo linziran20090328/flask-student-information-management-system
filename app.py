@@ -1,12 +1,12 @@
-from flask import Flask, render_template, request, redirect ,jsonify
+from flask import Flask, render_template, request, redirect, jsonify
 from model import *
 from db import StudentDB
+
 
 user_db = StudentDB()
 session: dict = {}
 
 app = Flask(__name__)
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -18,7 +18,7 @@ def login():
             session['name'] = user
             session['password'] = pwd
             for i in db.all():
-                print('i',i)
+                print('i', i)
                 if i['username'] == user:
                     # print(i)
                     session['city'] = i['city']
@@ -65,6 +65,7 @@ def register():
         return redirect(f'/login')
     return render_template('注册.html')
 
+
 @app.route('/students')
 def students():
     db = DB().all()
@@ -75,6 +76,8 @@ def students():
     # print(students)
     ret = {"code": 0, "message": "", "count": len(db), "data": data, 'success': True}
     return jsonify(ret)
+
+
 @app.route('/admin')
 def admin():
     name = session.get('name')
@@ -115,7 +118,9 @@ def change():
 @app.route('/admin_personal')
 def admin_personal():
     db = Personal_Information()
-    return render_template('个人信息.html', user=session.get('name'),student_user=session)
+    return render_template('个人信息.html', user=session.get('name'), student_user=session)
+
+
 @app.route('/admin_information', methods=['GET', 'POST'])
 def admin_information():
     """
@@ -144,7 +149,7 @@ def admin_information():
                 db.insert(student_user)
                 db.save()
                 return redirect('/admin')
-    return render_template('设置个人信息.html',student_user=session, user=session.get('name'))
+    return render_template('设置个人信息.html', student_user=session, user=session.get('name'))
 
 
 @app.route('/exit_user')
@@ -202,7 +207,8 @@ def change_table():
                 db.insert(stu)
                 db.save()
                 return redirect('/admin')
-            return render_template('修改(1).html',name=username,students=stu)
+            return render_template('修改(1).html', name=username, students=stu)
+
 
 @app.route('/user')
 def user():
@@ -218,6 +224,7 @@ def user():
     db.save()
     return jsonify({"message": "获取数据失败", "user_info": "", 'success': True})
 
+
 @app.route('/')
 def main():
     return redirect('/login')
@@ -225,7 +232,9 @@ def main():
 
 @app.route('/test')
 def test():
+
     return render_template('text-layui.html')
+
 
 if __name__ == '__main__':
     app.run()

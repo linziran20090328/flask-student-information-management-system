@@ -22,7 +22,7 @@
         <a id='Download-GUI' target="_blank" href="https://pan.baidu.com/s/1bpavI7XNM-RIvHYZvCr_Qg">下载桌面版</a>
     </li>
     <li class="layui-nav-item">
-        <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{{ user }}</a>
+        <a href="#"><img src="//t.cn/RCzsdCq" class="layui-nav-img">{{ user }}</a>
         <dl class="layui-nav-child">
             <dd><a href="/admin_information">修改个人信息</a></dd>
             <dd><a href="/admin_personal">查看个人信息</a></dd>
@@ -31,7 +31,7 @@
     </li>
 
 </ul>
-<table class="layui-hide" id="tables" lay-filter="tables"></table>
+<table class="layui-hide" id="tables" lay-filter="tables" style="margin-top: 200px"></table>
 <div id="userBar" style="display: none;">
     <a class="layui-btn layui-btn-xs" lay-event="change">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
@@ -45,7 +45,7 @@
         var tableIns = table.render({
             elem: '#tables'
             , toolbar: '#userToolBar'  // 表格的工具条
-            , url: 'http://127.0.0.1:5000/students' //数据接口
+            , url: 'http://192.168.0.100:5000/students' //数据接口
             {#, page: true //是否启用分页#}
             , height: 'full-300'
             , cellMinWidth: 100 //设置列的最小默认宽度
@@ -73,7 +73,7 @@
                 layer.confirm('真的删除行么', function (index) {
                     console.log(obj.data)
                     $.ajax({
-                        url: 'http://127.0.0.1:5000/delete?name='+ obj.data.name,
+                        url: 'http://192.168.0.100:5000/delete?name=' + obj.data.name,
                         {#type: 'get',#}
                         success: function () {
                             table.reload('tables')
@@ -86,9 +86,13 @@
                 layer.open({
                     type: 2,
                     title: '修改',
-                    content: 'http://127.0.0.1:5000/change_table?name='+ obj.data.name,
+                    content: 'http://192.168.0.100:5000/change_table?name=' + obj.data.name,
                     area: ['800px', '400px'],
+                    end: function () {
+                        table.reload('tables')
+                    }
                 })
+
             }
         })
         $('#Download-GUI').click(function () {
