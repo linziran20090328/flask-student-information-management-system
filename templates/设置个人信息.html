@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel='stylesheet' href="/static/layui/css/layui.css" media="all">
+
+    {#    <link rel="stylesheet" href="/static/layui/css/modules/code.css">#}
+    {#    <link rel="stylesheet" href="/static/layui/css/modules/laydate/default/laydate.css">#}
+    {#    <link rel="stylesheet" href="/static/layui/css/modules/layer/default/layer.css">#}
+
+</head>
+<body>
+<ul class="layui-nav">
+    <li class="layui-nav-item">
+        <a href="/admin">控制台</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="/add">新增</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="/exit_user">重新登录</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="/exit_register">重新注册</a>
+    </li>
+    <li class="layui-nav-item">
+        <a id='Download-GUI' target="_blank" href="https://pan.baidu.com/s/1bpavI7XNM-RIvHYZvCr_Qg">下载桌面版</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{{ user }}</a>
+        <dl class="layui-nav-child">
+            <dd><a href="/admin_information">修改个人信息</a></dd>
+            <dd><a href="/admin_personal">查看个人信息</a></dd>
+            <dd><a href="/exit_user">退了</a></dd>
+        </dl>
+    </li>
+
+</ul>
+<form class="layui-form" action="" style="width:400px;margin: 260px auto" method="post">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" name="username" value="{{ student_user.name }}" required lay-verify="required"
+                   placeholder="请输入用户名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">请输入验证密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
+                   class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">辅助文字</div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">选择框</label>
+        <div class="layui-input-block">
+            <select name="city" lay-verify="required">
+                <option value=""></option>
+                <option value="北京">北京</option>
+                <option value="上海">上海</option>
+                <option value="广州">广州</option>
+                <option value="深圳">深圳</option>
+                <option value="杭州">杭州</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">爱好</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="hobby" title="写作" value="写作" checked>
+            <input type="checkbox" name="hobby" title="阅读" value="阅读" checked>
+            <input type="checkbox" name="hobby" title="发呆" value="发呆" checked>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="男" title="男">
+            <input type="radio" name="sex" value="女" title="女" checked>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">自我介绍</label>
+        <div class="layui-input-block">
+            <textarea name="text" placeholder="请输入内容" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+        </div>
+    </div>
+</form>
+<script src="/static/layui/layui.js"></script>
+</body>
+</html>

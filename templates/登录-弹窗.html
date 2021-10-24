@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <link rel='stylesheet' href="/static/layui/css/layui.css" media="all">
+    {#    <link rel="stylesheet" href="/static/layui/css/modules/code.css">#}
+    {#    <link rel="stylesheet" href="/static/layui/css/modules/laydate/default/laydate.css">#}
+    {#    <link rel="stylesheet" href="/static/layui/css/modules/layer/default/layer.css">#}
+</head>
+<body>
+<form class="layui-form" style="width:400px;margin: 260px auto" method="post">
+    <div class="layui-form-item">
+        <label class="layui-form-label">输入框</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" required lay-verify="required" placeholder="请输入用户名" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码框</label>
+        <div class="layui-input-inline">
+            <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
+                   class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">辅助文字</div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <a href="/register" target="_blank" class="layui-btn">注册</a>
+        </div>
+    </div>
+</form>
+
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.use(function () {
+        layer.open({
+            title: '错误'
+            , content: '用户名或密码错误'
+        });
+    })
+
+</script>
+</body>
+</html>

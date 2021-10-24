@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>admin</title>
+    <link rel='stylesheet' href="/static/layui/css/layui.css" media="all">
+</head>
+<ul class="layui-nav">
+    <li class="layui-nav-item">
+        <a href="/admin">控制台</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="/add">新增</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="/exit_user">重新登录</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="/exit_register">重新注册</a>
+    </li>
+    <li class="layui-nav-item">
+        <a id='Download-GUI' target="_blank" href="https://pan.baidu.com/s/1bpavI7XNM-RIvHYZvCr_Qg">下载桌面版</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{{ user }}</a>
+        <dl class="layui-nav-child">
+            <dd><a href="/admin_information">修改个人信息</a></dd>
+            <dd><a href="/admin_personal">查看个人信息</a></dd>
+            <dd><a href="/exit_user">退了</a></dd>
+        </dl>
+    </li>
+
+</ul>
+<table class="layui-hide" id="tables" lay-filter="tables"></table>
+<div id="userBar" style="display: none;">
+    <a class="layui-btn layui-btn-xs" lay-event="change">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+</div>
+<script src="/static/layui/layui.js"></script>
+<script src="/static/jquery-3.6.0.js"></script>
+<script>
+    layui.use(function () {
+        let table = layui.table;
+        let $ = layui.$
+        var tableIns = table.render({
+            elem: '#tables'
+            , toolbar: '#userToolBar'  // 表格的工具条
+            , url: 'http://127.0.0.1:5000/students' //数据接口
+            {#, page: true //是否启用分页#}
+            , height: 'full-300'
+            , cellMinWidth: 100 //设置列的最小默认宽度
+            , page: true //开启分页
+            , done: function (res, curr, count) {
+            }
+            , cols: [[
+                {type: 'checkbox'},//表头
+                {field: 'id', title: 'ID', hide: true},
+                {field: 'name', title: '名字', align: 'center'}
+                , {field: 'chinese', title: '语文成绩', align: 'center'}
+                , {field: 'math', title: '数学成绩', align: 'center'}
+                , {field: 'english', title: '英语成绩', align: 'center'}
+                , {title: '操作', toolbar: '#userBar', width: 220, align: 'center'}
+            ]]
+        });
+        //table.on('checkbox(tables)', function (obj) {
+        //    console.log(obj.data) //选中行的相关数据
+        // })
+        table.on('tool(tables)', function (obj) {
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if (layEvent === 'delete') { //删除
+                layer.msg('删除');
+                layer.confirm('真的删除行么', function (index) {
+                    console.log(obj.data)
+                    $.ajax({
+                        url: 'http://127.0.0.1:5000/delete?name='+ obj.data.name,
+                        {#type: 'get',#}
+                        success: function () {
+                            table.reload('tables')
+                        }
+                    })
+                    layer.close(index)			    //向服务端发送删除指令
+                })
+            } else if (layEvent === 'change') {
+                //打开修改页面
+                layer.open({
+                    type: 2,
+                    title: '修改',
+                    content: 'http://127.0.0.1:5000/change_table?name='+ obj.data.name,
+                    area: ['800px', '400px'],
+                })
+            }
+        })
+        $('#Download-GUI').click(function () {
+            layer.open({
+                title: 'info'
+                , content: '百度网盘提取码：8888，桌面版可以和网页版同步数据'
+            });
+        })
+    })
+</script>
+</body>
+</html>

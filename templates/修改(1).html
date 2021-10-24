@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改页面</title>
+    <link rel='stylesheet' href="/static/layui/css/layui.css" media="all">
+    {#    <link rel="stylesheet" href="/static/layui/css/modules/code.css">#}
+    {#    <link rel="stylesheet" href="/static/layui/css/modules/laydate/default/laydate.css">#}
+    {#    <link rel="stylesheet" href="/static/layui/css/modules/layer/default/layer.css">#}
+</head>
+<body>
+<form action="" style="width: 200px ; margin: 0 300px" method="post">
+    <!--        <div>输入姓名,点击获取成绩按钮可直接获取成绩</div>-->
+    <div>
+        <label class="form-label">姓名:</label>
+        <input type="text" name="name" required lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+               class="layui-input" value="{{ students.name }}">
+    </div>
+    <div>
+        <label class="form-label">语文:</label>
+        <input type="text" name="chinese" required lay-verify="required" placeholder="请输入语文" autocomplete="off"
+               class="layui-input" value="{{ students.chinese }}">
+    </div>
+    <div>
+        <label class="form-label">数学:</label>
+        <input type="text" name="math" required lay-verify="required" placeholder="请输入数学" autocomplete="off"
+               class="layui-input" value="{{ students.math }}">
+    </div>
+    <div>
+        <label class="form-label">英语:</label>
+        <input type="text" name="english" required lay-verify="required" placeholder="英语" autocomplete="off"
+               class="layui-input" value="{{ students.english }}">
+    </div>
+    <div>
+        <button id='buttons' class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+    </div>
+
+</form>
+
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.use(function () {
+        var table = layui.table
+        var $ = layui.$
+        var from = layui.from
+        $('#buttons').click(function () {
+            location.reload(true)
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+        })
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <link rel='stylesheet' href="/static/layui/css/layui.css" media="all">
+</head>
+<body>
+<ul class="layui-nav">
+    <li class="layui-nav-item">
+        <a href="/admin">控制台</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="/add">新增</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="/exit_user">重新登录</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href="/exit_register">重新注册</a>
+    </li>
+    <li class="layui-nav-item">
+        <a id='Download-GUI' target="_blank" href="https://pan.baidu.com/s/1bpavI7XNM-RIvHYZvCr_Qg">下载桌面版</a>
+    </li>
+    <li class="layui-nav-item">
+        <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">{{ user }}</a>
+        <dl class="layui-nav-child">
+            <dd><a href="/admin_information">修改个人信息</a></dd>
+            <dd><a href="/admin_personal">查看个人信息</a></dd>
+            <dd><a href="/exit_user">退了</a></dd>
+        </dl>
+    </li>
+
+</ul>
+<div style="width: 400px ;margin: 100px auto;font-size: 25px">
+    <label>姓名:{{ student_user.name }}</label>
+    <br>
+    <label>密码:********</label>
+    <br>
+    <label>城市:{{ student_user.city }}</label>
+    <br>
+    <label>爱好:{{ student_user.hobby }}</label>
+    <br>
+    <label>性别:{{ student_user.sex }}</label>
+    <br>
+    <label>签名:{{ student_user.text }}</label>
+</div>
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.use(function () {
+
+    })
+</script>
+</body>
+</html>

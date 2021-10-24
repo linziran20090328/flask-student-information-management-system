@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改密码页面</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+    {#    <link rel="stylesheet" href="/static/layui/layui.js">#}
+</head>
+<body>
+<form class="layui-form" style="width:400px;margin: 260px auto" method="post">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" name="username" required lay-verify="required" placeholder="请输入用户名"
+                   autocomplete="off"
+                   value={{ user }}
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">原始密码</label>
+        <div class="layui-input-block">
+            <input type="password" name="old_password" required lay-verify="required" placeholder="请输入原密码"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">新密码</label>
+        <div class="layui-input-block">
+            <input type="password" name="new_password" required lay-verify="required" placeholder="请输入新密码"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即修改密码</button>
+        </div>
+    </div>
+
+</form>
+</body>
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.use(function () {
+        layer.open({
+        'title': 'info',
+        'content': '密码修改成功！'
+        })
+    })
+</script>
+
+</html>
