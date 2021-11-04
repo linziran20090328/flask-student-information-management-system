@@ -19,14 +19,14 @@ def login():
             session['name'] = user
             session['password'] = pwd
             for i in db.all():
-                print('i', i)
+                # print('i', i)
                 if i['username'] == user:
                     # print(i)
                     session['city'] = i['city']
                     session['hobby'] = i['hobby']
                     session['sex'] = i['sex']
                     session['text'] = i['text']
-            print(session)
+            # print(session)
             db.save()
             return redirect('/admin')
         else:
@@ -46,7 +46,7 @@ def register():
         hobby = request.form.getlist('hobby')
         sex = request.form.get('sex')
         text = request.form.get('text')
-        print(type(username))
+        # print(type(username))
         db.insert({
             'username': username,
             'password': password,
@@ -69,14 +69,22 @@ def register():
     return render_template('注册.html')
 
 
+"""self.student.sort(key=lambda item: str(int(item['math']) + int(item['chinese']) + int(item['english']) / 3))"""
+
+
 @app.route('/students')
 def students():
     db = DB()
     student = db.all()
-    student.sort(key=lambda item: item['math'],reverse=True)
-    ret = {"code": 0, "message": "", "count": len(student), "data": student, 'success': True}
-    db.save()
+    # 分页信息获取
+    page = request.args.get('page', type=int, default=1)
+    limit = request.args.get('limit', type=int, default=10)
+    start = (page - 1) * limit
+    data = student[start:start + limit]
+    # print(students)
+    ret = {"code": 0, "message": "", "count": len(student), "data": data, 'success': True}
     return jsonify(ret)
+
 
 
 @app.route('/admin')
@@ -84,8 +92,6 @@ def admin():
     name = session.get('name')
     password = session.get('password')
     if name and password:
-        db = DB()
-        db.save()
         return render_template('主页面.html', user=name)
     else:
         return redirect('/login')
@@ -105,7 +111,7 @@ def change():
         if changes:
             for i in db.all():
                 if i['username'] == session['name']:
-                    print(i)
+                    # print(i)
                     session['city'] = i[0]['city']
                     session['hobby'] = i[0]['hobby']
                     session['sex'] = i[0]['sex']
@@ -200,10 +206,14 @@ def delete():
 @app.route('/change_table', methods=['GET', 'POST'])
 def change_table():
     db = DB()
-    username = request.args.get('name')
     for stu in db.all():
+        username = request.args.get('name')
         if stu['name'] == username:
             if request.method == 'POST':
+                print(stu)
+
+                print(stu['name'])
+                # print('1',db.all())
                 stu['name'] = request.form.get('name')
                 stu['chinese'] = request.form.get('chinese')
                 stu['math'] = request.form.get('math')
@@ -211,7 +221,6 @@ def change_table():
                 db.delete(stu)
                 db.insert(stu)
                 db.save()
-                # return redirect('/admin')
             return render_template('修改(1).html', name=username, students=stu)
 
 
@@ -219,9 +228,9 @@ def change_table():
 def user():
     # 分页信息获取
     db = DB()
-    print(db.all())
+    # print(db.all())
     for student in db.all():
-        print(student)
+        # print(student)
         if student['name'] == request.args.get('name'):
             ret = {"message": "获取数据成功", "user_info": student, 'success': True}
             db.save()

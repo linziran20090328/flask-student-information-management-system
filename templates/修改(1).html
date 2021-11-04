@@ -9,7 +9,7 @@
     {#    <link rel="stylesheet" href="/static/layui/css/modules/layer/default/layer.css">#}
 </head>
 <body>
-<form action="" style="width: 200px ; margin: 0 300px" method="post">
+<form id='from' action="" style="width: 200px ; margin: 0 300px" method="post">
     <!--        <div>输入姓名,点击获取成绩按钮可直接获取成绩</div>-->
     <div>
         <label class="form-label">姓名:</label>
@@ -39,15 +39,29 @@
 
 <script src="/static/layui/layui.js"></script>
 <script>
-    layui.use(function () {
-        var table = layui.table
-        var $ = layui.$
-        var from = layui.from
-        $('#buttons').click(function () {
-            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-            parent.layer.close(index); //再执行关闭
-        })
+    function sleep(delay) {
+        var start = (new Date()).getTime();
+        while ((new Date()).getTime() - start < delay) {
+            continue;
+        }
+    }
 
+    layui.use(function () {
+        {#var table = layui.table#}
+        var $ = layui.$
+        {#var from = layui.from#}
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            {#parent.location.reload();#}
+            parent.layer.close(parent.layer.getFrameIndex(window.name));
+            parent.location.reload();
+            return true;
+        });
+        //$('#buttons').click(function () {
+//
+        //})
     })
 </script>
 </body>

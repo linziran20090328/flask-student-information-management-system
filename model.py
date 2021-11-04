@@ -14,8 +14,8 @@ class DB:
         self.student.sort(key=lambda item: str(int(item['math']) + int(item['chinese']) + int(item['english']) / 3),reverse=True)
 
     def all(self):
-        print(self.student)
-        print(self.student)
+        # print(self.student)
+        # print(self.student)
         return self.student
 
     def insert(self, student):
@@ -42,12 +42,12 @@ class DB:
                 'chinese': i[2],
                 'math': i[1],
                 'english': i[3],
+                'average_score': str(int(i[2])+int(i[1])+int(i[3])/3)
             })
 
     def delete(self, student):
         """删除学员信息"""
         self.student.remove(student)
-        self.student.sort(key=lambda item: str(int(item['math']) + int(item['chinese']) + int(item['english']) / 3),reverse=True)
 
 
 class Personal_Information:
