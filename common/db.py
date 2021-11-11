@@ -6,7 +6,7 @@
 # @Software     :       Pycharm
 
 from redis import Redis
-from redis_config import REDIS_HOST, REDIS_PORT, REDIS_DB,REDIS_PASSWORD
+from common.redis_config import REDIS_HOST, REDIS_PORT, REDIS_DB,REDIS_PASSWORD
 
 
 class StudentDB:
