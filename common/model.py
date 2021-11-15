@@ -11,7 +11,6 @@ class DB:
         self.cc.execute('use student;')
         self.student = []
         self.load()
-        self.student.sort(key=lambda item: str(int(item['math']) + int(item['chinese']) + int(item['english']) / 3),reverse=True)
 
     def all(self):
         # print(self.student)
@@ -20,7 +19,8 @@ class DB:
 
     def insert(self, student):
         self.student.append(student)
-        self.student.sort(key=lambda item: str(int(item['math']) + int(item['chinese']) + int(item['english']) / 3),reverse=True)
+        self.student.sort(key=lambda item: str(int(item['math']) + int(item['chinese']) + int(item['english']) / 3),
+                          reverse=True)
 
     def save(self):
         self.cc.execute('truncate table student_xlsx;')
@@ -42,8 +42,10 @@ class DB:
                 'chinese': i[2],
                 'math': i[1],
                 'english': i[3],
-                'average_score': str(int(i[2])+int(i[1])+int(i[3])/3)
+                'average_score': str(int(i[2]) + int(i[1]) + int(i[3]) / 3)
             })
+        self.student.sort(key=lambda item: str(int(item['math']) + int(item['chinese']) + int(item['english']) / 3),
+                          reverse=True)
 
     def delete(self, student):
         """删除学员信息"""
@@ -66,12 +68,12 @@ class Personal_Information:
         for i in table:
             # print(i)
             self.data.append({
-                'username': i[0+1],
-                'password': i[1+1],
-                'city': i[2+1],
-                'hobby': i[3+1],
-                'sex': i[4+1],
-                'text': i[5+1],
+                'username': i[0 + 1],
+                'password': i[1 + 1],
+                'city': i[2 + 1],
+                'hobby': i[3 + 1],
+                'sex': i[4 + 1],
+                'text': i[5 + 1],
             })
         print(self.data)
 
@@ -98,6 +100,8 @@ class Personal_Information:
         self.c.commit()
         self.cc.close()
         self.c.close()
+
+
 if __name__ == '__main__':
     db = Personal_Information()
     db.save()

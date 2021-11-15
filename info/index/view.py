@@ -41,8 +41,7 @@ def change():
     return render_template('修改密码.html', user=session.get('name'))
 @index_bp.route('/exit_user')
 def exit_user():
-    global session
-    session = {}
+    session.clear()
     return redirect('/auth/login')
 
 
