@@ -17,7 +17,7 @@ Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN�
 
 #### 使用说明
 
-1.  运行app.py
+1.  flask run运行
 2. 访问http://127.0.0.1:5000<del>http://localhost:5000</del>
 3. 自己去探索吧
 
