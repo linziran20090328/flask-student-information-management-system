@@ -121,9 +121,6 @@ def admin():
         return render_template('主页面.html', user=name)
     else:
         return redirect('/auth/login')
-
-
-
 @index_bp.route('/admin_personal')
 def admin_personal():
     db = Personal_Information()
